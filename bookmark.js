@@ -74,24 +74,9 @@ chrome.browserAction.onClicked.addListener(function () {
                      tags: tags,
                   },
                });
-
-               setTimeout(() => {
-                  chrome.tabs.query({ active: true }, function (tab) {
-                     chrome.tabs.executeScript(
-                        tab[0].id,
-                        {
-                           file: "suggestions.js",
-                        },
-                        function () {
-                           if (chrome.runtime.lastError) {
-                              console.log("There was error injected a script.");
-                           }
-                        }
-                     );
-                  });
-               }, 10);
             }
          });
       });
    });
 });
+
