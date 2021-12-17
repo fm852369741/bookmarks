@@ -1,13 +1,11 @@
-const exampleDocument = window.open('https://example.com').document;
-
-exampleDocument.head.innerHTML =
+document.head.innerHTML =
    '<style>@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");* {margin: 0;padding: 0;box-sizing: border-box;font-family: "Poppins", sans-serif;}body{width:100vw;height:100vh;overflow:hidden;background:#664aff !important}::selection {color: #fff;background: #664aff;}.wrapper {max-width: 450px;margin: 150px auto;}.wrapper .search-input {background: #fff;width: 100%;border-radius: 5px;position: relative;box-shadow: 0px 1px 5px 3px rgba(0, 0, 0, 0.12);}.search-input input {height: 55px;width: 100%;outline: none;border: none;border-radius: 5px;padding: 0 60px 0 20px;font-size: 18px;box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);}.search-input.active input {border-radius: 5px 5px 0 0;}.search-input .autocom-box {padding: 0;opacity: 0;pointer-events: none;max-height: 280px;overflow-y: auto;}.search-input.active .autocom-box {padding: 10px 8px;opacity: 1;pointer-events: auto;}.autocom-box li {list-style: none;padding: 8px 12px;display: none;width: 100%;cursor: default;border-radius: 3px;}.search-input.active .autocom-box li {display: block;}.autocom-box li:hover {background: #efefef;}.search-input .icon {position: absolute;right: 0px;top: 0px;height: 55px;width: 55px;text-align: center;line-height: 55px;font-size: 20px;color: #644bff;cursor: pointer;}</style>';
-exampleDocument.body.innerHTML =
+document.body.innerHTML =
    '<div class="wrapper"><div class="search-input"><a href="" target="_blank" hidden></a><input type="text" placeholder="Type to search.." /><div class="autocom-box"></div><div class="icon"><i class="fas fa-search"></i></div></div></div>';
 
-let searchWrapper = exampleDocument.querySelector(".search-input");
-let inputBox = exampleDocument.querySelector("input");
-let suggBox = exampleDocument.querySelector(".autocom-box");
+let searchWrapper = document.querySelector(".search-input");
+let inputBox = document.querySelector("input");
+let suggBox = document.querySelector(".autocom-box");
 
 inputBox.onkeyup = (e) => {
    chrome.storage.local.get(["widgetDetails"], ({ widgetDetails }) => {
@@ -32,6 +30,8 @@ inputBox.onkeyup = (e) => {
                      suggestions,
                      validSuggestionsTags
                   );
+
+                  // console.log(titles);
 
                   const filteredTitles = titles.filter((title) => {
                      return title != undefined ? title : "";
@@ -61,7 +61,7 @@ inputBox.onkeyup = (e) => {
                   searchWrapper.classList.add("active");
 
                   const suggestionsList =
-                     exampleDocument.querySelectorAll(".suggestion");
+                     document.querySelectorAll(".suggestion");
 
                   suggestionsList.forEach((suggestionItem) => {
                      suggestionItem.addEventListener("click", (e) => {
@@ -100,3 +100,4 @@ function findSelectedBookmarks(bookmarks, validTitles) {
       });
    });
 }
+
